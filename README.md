@@ -1,6 +1,6 @@
 # Todo Challenge
 
-* Challenge time: Friday afternoon (+ weekend if you need it)
+* Deadline: submit completed pull request by 9am on Monday
 * You may use whatever level of JavaScript you feel comfortable with - pure JS, jQuery, Angular, or whatever weird and wonderful framework you want to try. Extra points for DogeScript
 
 ## Challenge
@@ -48,6 +48,12 @@ As you may imagine, implementing a To-do list is very much a solved problem. How
 * good HTML5 markup
 
 Don't worry about deployment, and make sure you read the CONTRIBUTING.md when submitting a pull request.
+
+## Extensions
+
+* Deploy the app
+* Create a persistance layer (e.g. MongoDB), or use LocalStorage or the filesystem through Node
+* Make it look purdy (CSS) - try a framework like Bootstrap or Foundation
 
 Good luck!
 
