@@ -7,3 +7,4 @@
   * Avoid <div>
   * No integration tests, or poor test coverage
   * Over-reliance on online tutorials
+  * make use of available angular directives - e.g. checkboxes
