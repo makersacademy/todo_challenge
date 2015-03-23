@@ -9,3 +9,5 @@
   * No integration tests, or poor test coverage
   * Over-reliance on online tutorials
   * make use of available angular directives - e.g. checkboxes
+  * Not using controllerAs syntax
+  * not using preferred array syntax for dependency injection (to avoid minify issues)
