@@ -6,4 +6,4 @@
   * If using a framework, delete any unnecessary code
   * Avoid <div>
   * No integration tests, or poor test coverage
-  * 
+  * Over-reliance on online tutorials
