@@ -3,6 +3,7 @@
   * Tests with no expectation
   * Tests with multiple expectation
   * No README.md
+  * Incorrect installation instructions in the README
   * If using a framework, delete any unnecessary code
   * Avoid <div>
   * No integration tests, or poor test coverage
