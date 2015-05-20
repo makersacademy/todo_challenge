@@ -62,5 +62,11 @@ Don't worry about deployment, and make sure you read the CONTRIBUTING.md when su
 * Create a persistance layer (e.g. MongoDB), or use LocalStorage or the filesystem through Node
 * Make it look purdy (CSS) - try a framework like Bootstrap or Foundation
 
-Good luck!
+## CI
 
+Read the `.travis.yml` if any of the steps below don't make sense! 
+
+* Make sure you have set up `npm test` in your `package.json` so that it runs your Karma tests
+* Make sure you have your Protractor config file at `e2e/conf.js`
+
+Good luck!
