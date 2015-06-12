@@ -68,5 +68,6 @@ Read the `.travis.yml` if any of the steps below don't make sense!
 
 * Make sure you have set up `npm test` in your `package.json` so that it runs your Karma tests
 * Make sure you have your Protractor config file at `e2e/conf.js`
+* Make sure `npm start` spins up whatever serves up your app - `http-server`, Sinatra or Node
 
 Good luck!
