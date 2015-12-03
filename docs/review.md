@@ -95,9 +95,6 @@ todoApp.controller('toDoCtrl', function() {
 ```
 Prefer declaring `defaultList` within the controller:
 ```javascript
-// this variable is declared in a global scope
-
-
 todoApp.controller('toDoCtrl', function() {
   var defaultList = { "items": [ ] }
   
