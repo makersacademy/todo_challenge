@@ -72,23 +72,40 @@ https://github.com/makersacademy/todo_challenge/issues/68 related?
 
 ## Tests with multiple expectation
 
-try not to have multiple expectations in unit tests. you might want a different test for the error message
+Try not to have multiple expectations in unit tests. You might want a different test for the error message.
 
 ## No integration tests, or poor test coverage
 
-
 # Step 4: Application code
 
-## move data into controller/model where Possible
+## Keep data in controller or service
 
+Rather than:
 ```javascript
-var toDo = angular.module('ToDo', []);
+// this variable is declared in a global scope
+var defaultList = { "items": [ ] }
 
-//poluting the global name space further.. bad!
-var defaultList = { "items":[
+todoApp.controller('toDoCtrl', function() {
+// and then its data is mutated within a controller
+  this.addItem = function(item) {
+    defaultList.items.push(item)
+  }
+  
+});
 ```
+Prefer declaring `defaultList` within the controller:
+```javascript
+// this variable is declared in a global scope
 
-Prefer putting defaultList in the approrpriate controller
+
+todoApp.controller('toDoCtrl', function() {
+  var defaultList = { "items": [ ] }
+  
+  this.addItem = function(item) {
+    defaultList.items.push(item)
+  }
+});
+```
 
 ## Prefer list array outside of function
 
