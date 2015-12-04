@@ -1,0 +1,7 @@
+vendor/*
+lib/*
+spec/*
+test/*
+*.md
+**/*.html
+*.LICENSE
