@@ -25,23 +25,26 @@ Please checkout your reviewee's code and run their tests. Read the code and try 
 
 # Step 2: Structure and supporting files
 
-# Installation/Usage Instructions in README (+)
+## Installation/Usage Instructions in README
 
 As we have seen previously, the README is a great place to show the full story of how your app is used (from a user's perspective).  Include instructions for how to download and run the tests, run the app, e.g.:
+
+To download the app e.g.:
 
 ```sh
 $ git clone git@github.com:[USERNAME]/todo-challenge.git
 $ cd todo-challenge
-$ ???
-$ ???
+$ npm install
+$ bower install
 ```
 
-To run app:
+To run app e.g.:
 
 ```sh
-$ ???
-$ open ???
+$ http-server .
 ```
+
+etc.
 
 It's a great idea to include some screenshots in your README.  For more info on embedding images in a README: https://guides.github.com/features/mastering-markdown/
 
@@ -55,59 +58,61 @@ You will need to host your images somewhere, e.g.:
 * http://dropbox.com/
 
 
-## If using a framework, delete any unnecessary code
+## If using a framework such as Yeoman to scaffold your solution, delete any superfluous code
+Some frameworks create lots of additional cruft to support features you are not using.  Delete these from your solution so that they do not distract your readers.  If you are worried about needing them in the future, you can always keep them on a branch.
 
 ## Clean up
 
-* Remove comments
-* Try to avoid having log statements in your production code
+* Remove commented out code and superfluous commentary
+* Avoid having `console.log` statements in your production code
 
-## ensure package.json devDependencies lists bower as a dependency (++)
-
-https://github.com/makersacademy/todo_challenge/issues/68 related?
+## Ensure project setup is reproducible on a different machine
+For example, ensure all of you node dependencies are correctly saved in `package.json` and that bower dependencies are saved in `bower.json`.
 
 # Step 3: Tests
 
 ## Tests with no expectation
+Don't forget to include expectations in your tests.  If your tests have lots of setup,
 
 ## Tests with multiple expectation
 
-Try not to have multiple expectations in unit tests. You might want a different test for the error message.
+Avoid multiple expectations in unit tests.  Create a new unit test for each expectation.
 
-## No integration tests, or poor test coverage
+## No end to end tests
+Use protractor to ensure your application is fully feature tested.
 
 # Step 4: Application code
 
-## Keep data in controller or service
+## Encapsulate data in the controller or service
 
-Rather than:
+e.g. rather than:
 ```javascript
-// this variable is declared in a global scope
+// defaultList is declared in a global scope
 var defaultList = { "items": [ ] }
 
-todoApp.controller('toDoCtrl', function() {
-// and then its data is mutated within a controller
+todoApp.controller('ToDoController', function() {
+  // and then its data is mutated within a controller
   this.addItem = function(item) {
     defaultList.items.push(item)
   }
-  
 });
 ```
-Prefer declaring `defaultList` within the controller:
+declare `defaultList` within the controller:
 ```javascript
-todoApp.controller('toDoCtrl', function() {
+todoApp.controller('ToDoController', function() {
   var defaultList = { "items": [ ] }
-  
+
   this.addItem = function(item) {
     defaultList.items.push(item)
   }
 });
 ```
 
-## Prefer list array outside of function
+## Initialize state outside of interface functions
+In the example below `addItem` additionally tests for and initializes `self.list`.  This is not its responsibility and necessitates a redundant test on all but the first call to the function.
 
 ```javascript
-toDo.controller('toDoController', [function() {
+toDo.controller('ToDoController', [function() {
   var self = this;
 
   self.addItem = function() {
@@ -122,14 +127,13 @@ toDo.controller('toDoController', [function() {
   };
 ```
 
-could be
+Instead, this should be:
 
 ```javascript
-toDo.controller('toDoController', [function() {
+toDo.controller('ToDoController', [function() {
   var self = this;
-  if (self.list === undefined) {
-    self.list = [];
-  }
+
+  self.list = [];
 
   self.addItem = function() {
     var item = {
@@ -139,22 +143,45 @@ toDo.controller('toDoController', [function() {
     self.list.push(item)
   };
 ```
-
 ## Over-reliance on online tutorials
+Beware relying on code from older resources: it may use deprecated conventions.  Also, do not copy-paste you don't fully understand.
 
 ## Not using controllerAs syntax
+The following syntax is valid:
+```html
+<div ng-controller="ToDoController">
+```
+however, the ['controllerAs' syntax is preferred](https://github.com/toddmotto/angularjs-styleguide#controllers):
+```html
+<div ng-controller="ToDoController as todoCtrl">
+```
 
 ## Not using preferred array syntax for dependency injection (to avoid minify issues)
+Don't define your Angular components as follows:
+```javascript
+module.controller(function($dependency1, $dependency2, ...) {
+  ...
+});
+```
+If this code is minified, the two parameters `$dependency1` and `$dependency2` will be renamed with short names such as `a` and `b`.  Angular will not be able to resolve these names as dependencies.  To prevent this, define your components using the array syntax:
+```javascript
+module.controller("$dependency1", "$dependency2", function($dependency1, $dependency2, ...) {
+  ...
+});
+```
 
 ## Make use of available angular directives - e.g. checkboxes
+Angular has many awesome directives to take care of the common UI requirements.  Use them - that's what they're for!  If you can't find a directive and think there should be one... write it!
 
 ## Make use of filters where appropriate
 
-## Think about refactoring the todolist into its own service
 
-## Let Angular update the interface rather than reaching in to the HTML:
+## Think about creating a service to manage the todo list data
+In Angular, services are **singletons**, whereas controllers are not.  If you need two instances of your controller on the page, you will have two sets of data (if the data is contained in the controller).  However, if you store the data in a **service** and inject this service into your controller, each controller instance will access the same single instance of the service, so there will be only one set of data.
 
-Prefer
+## Let Angular update the interface rather than reaching into the HTML:
+
+For example, prefer:
 
 ```javascript
 self.submitForm = function(){
@@ -162,7 +189,7 @@ self.submitForm = function(){
 }
 ```
 
-over
+over:
 
 ```javascript
 self.submitForm = function(){
@@ -172,39 +199,59 @@ self.submitForm = function(){
 }
 ```
 
-## Prefer ToDoController as todoCtrl syntax
+In particular, if you are directly manipulating UI elements in response to changes in application state, you are probably doing something wrong and should be using Angular instead.
+
+## Set up ng-model correctly with controllerAs syntax.
 
 ```html
-<body>
-  <div ng-controller="ToDoController">
+<div ng-controller="ToDoController as todoCtrl">
+  <input type="text" name="newTodo" ng-model="newTodo" required />
+</div>
 ```
 
-Prefer ToDoController as todoCtrl syntax. Note, you then have to put todoCtrl. before your viewmodels / bindings throughout the html.
-
-http://toddmotto.com/digging-into-angulars-controller-as-syntax/
-
-## Set up ng-model correctly
+should be:
 
 ```html
-<input type="text" name="newtodo" ng-model="newtodo" required />
+<div ng-controller="ToDoController as todoCtrl">
+  <input type="text" name="newTodo" ng-model="todoCtrl.newTodo" required />
+</div>
 ```
-
-should be ng-model="todoCtrl.newTodo"
-
-## ???
-
+## Don't reference `$scope`
+When using the `controllerAs` syntax, define your controller's behaviour on `this` instead of injecting `$scope` (`this` is already bound to `$scope`):
+avoid:
 ```javascript
-$scope.clearCompletedTasks = function(){
-    $scope.todos = $scope.todos.filter(function(task){
-      return !task.complete;
+function MainCtrl ($scope) {
+  $scope.someObject = {};
+  $scope.doSomething = function () {
+
+  };
+}
+```
+recommended:
+```javascript
+function MainCtrl () {
+  self = this;
+  self.someObject = {};
+
+  self.doSomething = function () {
+    self.someObject.someProperty;
+  };
+}
+```
+Note: the use of `self = this;` at the top of the function is important.  The following _will not work_ as `this` inside `doSomething` is not bound to `$scope`:
+```javascript
+function MainCtrl () {
+  this.someObject = {};
+
+  this.doSomething = function () {
+    this.someObject.someProperty;
+  };
+}
 ```
 
-$scope.todos = is actually rewriting the view model every time you clear completed tasks - so the change is permanent.
+## Prefer semantic HTML elements to `div`s where possible
 
-
-### Prefer other Semantic HTML Elements to Divs Where Possible
-
-It's tempting to wrap everything HTML5 in a div.  However we should try to make use of other semantic HTML elements where possible.  Try using this [flowchart](http://html5doctor.com/downloads/h5d-sectioning-flowchart.png).  This flowchart should help us choose item 2 from the following list
+It's tempting to wrap everything in a div.  However we should try to make use of other semantic HTML elements where possible.  Try using this [flowchart](http://html5doctor.com/downloads/h5d-sectioning-flowchart.png).  This flowchart should help us choose item 2 from the following list
 
 * 1. Pure Div
 
@@ -229,8 +276,8 @@ It's tempting to wrap everything HTML5 in a div.  However we should try to make 
 
 Related links:
 
-* http://html5doctor.com/lets-talk-about-semantics/
-* http://learn.shayhowe.com/advanced-html-css/semantics-accessibility/ ?
+* http://html5doctor.com/lets-talk-about-semantics
+* http://learn.shayhowe.com/advanced-html-css/semantics-accessibility
 * http://www.w3schools.com/html/html5_semantic_elements.asp
 
 ## Extract CSS to separate files:
