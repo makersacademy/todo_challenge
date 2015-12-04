@@ -1,7 +1,7 @@
 vendor/*
 lib/*
 spec/*
-test/**/*
+test/*
 *.md
 **/*.html
 *.LICENSE
