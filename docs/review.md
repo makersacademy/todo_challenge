@@ -80,6 +80,7 @@ Some frameworks create lots of additional cruft to support features you are not 
 
 * Remove commented out code and superfluous commentary
 * Avoid having `console.log` statements in your production code
+* Ensure you do not commit your bower_components and node_modules folders to git
 
 ## Ensure project setup is reproducible on a different machine
 
