@@ -87,7 +87,10 @@ For example, ensure all of you node dependencies are correctly saved in `package
 
 # Step 3: Tests
 
-## Tests with no expectation
+## Address General Test Issues
+
+* Test expectations appropriate
+  - All tests should include expectations
 
 Don't forget to include expectations in your tests.  For example the below has a long setup, but no expectation
 
@@ -99,9 +102,9 @@ it('allows a task to be deleted', function() {
 });
 ```
 
-## Tests with multiple expectation
-
-Avoid multiple expectations in unit tests.  Create a new unit test for each expectation.
+  - Avoid multiple expectations in unit tests.  Create a new unit test for each expectation.
+ * Test descriptions consistent
+ * Tests DRY
 
 ## No end to end tests
 
