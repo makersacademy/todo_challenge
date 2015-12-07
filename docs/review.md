@@ -72,6 +72,8 @@ You will need to host your images somewhere, e.g.:
 * http://dropbox.com/
 
 
+* http://stackoverflow.com/questions/2304863/how-to-write-a-good-readme
+
 ## Review Pull Request for any unnecessary material
 
 * Consistent indentation
