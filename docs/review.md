@@ -181,9 +181,9 @@ toDo.controller('ToDoController', [function() {
 
 ## Over-reliance on online tutorials
 
-Beware relying on code from older resources: it may use deprecated conventions.  Also, do not copy-paste you don't fully understand.
+Beware relying on code from older resources: it may use deprecated conventions.  Also, do not copy-paste what you don't fully understand.
 
-## Not using controllerAs syntax
+## Use controllerAs syntax
 
 The following syntax is valid:
 
