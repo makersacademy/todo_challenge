@@ -108,9 +108,9 @@ it('allows a task to be deleted', function() {
  * Test descriptions consistent
  * Tests DRY
 
-## No end to end tests
+## Lack of end to end (feature) tests
 
-Use protractor to ensure your application is fully feature tested.
+Use [protractor](https://angular.github.io/protractor/#/) to ensure your application is fully feature tested.
 
 # Step 4: Application code
 
