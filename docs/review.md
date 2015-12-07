@@ -72,15 +72,13 @@ You will need to host your images somewhere, e.g.:
 * http://dropbox.com/
 
 
-## If using a framework such as Yeoman to scaffold your solution, delete any superfluous code
-
-Some frameworks create lots of additional cruft to support features you are not using.  Delete these from your solution so that they do not distract your readers.  If you are worried about needing them in the future, you can always keep them on a branch.
-
-## Clean up
+## Review Pull Request for any unnecessary material
 
 * Remove commented out code and superfluous commentary
 * Avoid having `console.log` statements in your production code
 * Ensure you do not commit your bower_components and node_modules folders to git
+
+Note that some frameworks create lots of additional cruft to support features you are not using.  Delete these from your solution so that they do not distract your readers.  If you are worried about needing them in the future, you can always keep them on a branch.
 
 ## Ensure project setup is reproducible on a different machine
 
