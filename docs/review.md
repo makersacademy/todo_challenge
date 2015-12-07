@@ -90,6 +90,7 @@ For example, ensure all of you node dependencies are correctly saved in `package
 ## Address General Test Issues
 
 * Test expectations appropriate
+  - Avoid multiple expectations in unit tests.  Create a new unit test for each expectation.
   - All tests should include expectations
 
 Don't forget to include expectations in your tests.  For example the below has a long setup, but no expectation
@@ -102,7 +103,6 @@ it('allows a task to be deleted', function() {
 });
 ```
 
-  - Avoid multiple expectations in unit tests.  Create a new unit test for each expectation.
  * Test descriptions consistent
  * Tests DRY
 
