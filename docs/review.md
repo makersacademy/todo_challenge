@@ -74,6 +74,7 @@ You will need to host your images somewhere, e.g.:
 
 ## Review Pull Request for any unnecessary material
 
+* Consistent indentation
 * Remove commented out code and superfluous commentary
 * Avoid having `console.log` statements in your production code
 * Ensure you do not commit your bower_components and node_modules folders to git
